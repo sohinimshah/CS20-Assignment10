@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body {
+            background-color: rgb(197, 248, 246);
+            font-family: Verdana, sans-serif;
+        }
+    </style>
+    <head>
+        <meta charset="utf-8">
+        <title>API Fun</title>
+        <script language="javascript">
+            function callAPI() {
+                //Step 1: Request object created
+                request = new XMLHttpRequest();
+
+                //Step 2: Open request file
+                request.open("GET", "https://api.dictionaryapi.dev/api/v2/entries/en/computer", true);
+
+                //Step 3: readystatechange event fired
+                request.onreadystatechange = function() {
+
+                    if (request.readyState == 4 && request.status == 200) {
+                        result = request.responseText;
+                        info = JSON.parse(result);
+                        document.getElementById("definitions").innerHTML = 
+                            "Definition 1: " + 
+                            info[0].meanings[0].definitions[0].definition + 
+                            "<br><br> Definition 2: " + 
+                            info[0].meanings[0].definitions[1].definition + 
+                            "<br><br> Definition 3: " + 
+                            info[0].meanings[0].definitions[2].definition + "<br><br>";
+                    } else if (request.readyState == 4 && request.status != 200) {
+                        document.getElementById("definitions").innerHTML = "Something is wrong! Check the logs to see where it went wrong. <br><br>";
+                    }
+                }
+                //Step 4: Request sent
+                request.send();
+
+                //Using fetch to complete API call
+                res = fetch("https://api.dictionaryapi.dev/api/v2/entries/en/computer")
+                    .then(res => res.text())
+                    .then(data => console.log(data))
+                    .catch(error => console.log(error))
+            }
+        </script>
+    </head>
+    <body onload="callAPI()">
+        <h1>Definitions of a computer</h1>
+        <div id="definitions">Loading...</div>
+        <br>
+        <h2>About the API</h2>
+        <p>The API that I chose is a free dictionary which gives the 
+            definition of a word when the word is provided. In this case, I 
+            chose to display the definitions of the word "computer".</p>
+        <br>
+        <p>I found the API on https://dictionaryapi.dev/.</p>
+        <br>
+        <p>Options used for the API request: the word, "computer" </p>
+        <br>
+        <p>Two applications where this API is helpful: This API is helpful when
+           a user is researching and wants the definition of a word that they 
+           come across in readings, such as "computer". It is also helpful to 
+           use when trying to expand your vocabulary and learn new words.</p>
+    </body>
+</html>
