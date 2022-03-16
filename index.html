@@ -15,7 +15,9 @@
                 request = new XMLHttpRequest();
 
                 //Step 2: Open request file
-                request.open("GET", "https://api.dictionaryapi.dev/api/v2/entries/en/computer", true);
+                request.open("GET", 
+                    "https://api.dictionaryapi.dev/api/v2/entries/en/computer", 
+                    true);
 
                 //Step 3: readystatechange event fired
                 request.onreadystatechange = function() {
@@ -29,16 +31,20 @@
                             "<br><br> Definition 2: " + 
                             info[0].meanings[0].definitions[1].definition + 
                             "<br><br> Definition 3: " + 
-                            info[0].meanings[0].definitions[2].definition + "<br><br>";
-                    } else if (request.readyState == 4 && request.status != 200) {
-                        document.getElementById("definitions").innerHTML = "Something is wrong! Check the logs to see where it went wrong. <br><br>";
+                            info[0].meanings[0].definitions[2].definition + 
+                            "<br><br>";
+                    } else if (request.readyState == 4 && request.status != 200)
+                    {
+                        document.getElementById("definitions").innerHTML = 
+                        "Something is wrong! Check the logs to see where it went wrong. <br><br>";
                     }
                 }
                 //Step 4: Request sent
                 request.send();
 
                 //Using fetch to complete API call
-                res = fetch("https://api.dictionaryapi.dev/api/v2/entries/en/computer")
+                res = 
+                    fetch("https://api.dictionaryapi.dev/api/v2/entries/en/computer")
                     .then(res => res.text())
                     .then(data => console.log(data))
                     .catch(error => console.log(error))
